@@ -1,7 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import Pages from '../pages';
 
 function App() {
-    return <h1>Hello World</h1>
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        fetch('https://gitconnected.com/v1/portfolio/dswhitely1')
+            .then(res => res.json())
+            .then(user => setUser(user))
+    }, []);
+
+    console.log(user);
+
+    if (!user) {
+        return <div/>
+    }
+
+    return <Pages user={user} />
 }
 
 export default App;
